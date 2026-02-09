@@ -1,16 +1,20 @@
-# React + Vite
+# Quizzical
+A simple implementation of the Open Trivia DB API
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Dependencies
+Made in React, in order to play around with using conditional rendering to imitate page routing when only two pages are needed. Uses the 'he' package for HTML entities, as well as CLSX.
 
-Currently, two official plugins are available:
+## Files
+Entry into main.jsx which directly renders App.jsx.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+* App.jsx - Main page. Holds in state an object describing various page options (currently only the page name and number of questions the user selected). Defines event listener functions to update the page. Finally, conditionally renders one of the main components depending on which page name is currently in state.
 
-## React Compiler
+* Title.jsx - Takes a callback as a prop to use as the button's onclick event listener. Holds the current number of questions selected by the user in state. Defines a function to call the passed-in callback. Renders the game's title and a start button, with an input to decide between 1 and 50 (the API maximum) questions.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+* Quiz.jsx - Quiz component. Receives a callback to return to the title page and the number of questions to use. Holds the array of question objects in state. Renders Question components for each object.
 
-## Expanding the ESLint configuration
+* Question.jsx - Question component. Renders the provided question object and conditionally alters the classnames as an answer is clicked.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+* utils.js - Helpers. Exports a function to shuffle array items and a function to fetch a list of questions from the API.
+
+* index.css - Stylesheet.

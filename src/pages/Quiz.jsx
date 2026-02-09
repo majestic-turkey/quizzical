@@ -1,4 +1,4 @@
-import getTrivia from "./trivia"
+import getTrivia from "../utils"
 import Question from "./Question"
 import {useState, useEffect} from "react"
 
