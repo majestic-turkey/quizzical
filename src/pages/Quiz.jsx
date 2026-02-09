@@ -2,19 +2,19 @@ import getTrivia from "./trivia"
 import Question from "./Question"
 import {useState, useEffect} from "react"
 
-export default function Quiz({ titleReturn }) {
+export default function Quiz({ titleReturn, number }) {
 
     const [triviaQuestions, setTriviaQuestions] = useState([])
     useEffect (() => {
-        getTrivia().then(data => setTriviaQuestions(data))
-    },[])
+        getTrivia(number).then(data => setTriviaQuestions(data))
+    },[number])
 
     function guessAnswer(index) {
         setTriviaQuestions(prev => prev.map((q, i) => i === index ? {...q, guessed: true} : q))
     }
     
     async function resetQuiz() {
-        await getTrivia().then(data => setTriviaQuestions(data))
+        await getTrivia(number).then(data => setTriviaQuestions(data))
     }
 
     const triviaEls = triviaQuestions.map((triv, index) => {
