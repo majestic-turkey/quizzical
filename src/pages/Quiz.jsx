@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react"
+import {useState} from "react"
 import trivia from "./trivia"
 
 export default function Quiz() {
+    // eslint-disable-next-line no-unused-vars
     const [triviaQuestions, setTriviaQuestions] = useState(trivia.results)
 
     const triviaEls = triviaQuestions.map((question, index) => {
