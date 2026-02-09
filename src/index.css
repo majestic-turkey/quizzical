@@ -54,6 +54,10 @@ body::after {
     letter-spacing: -0.5px;
 }
 
+button {
+    margin: 0 1.5rem;
+}
+
 .start-btn {
     width: 193px;
     height: 52px;
@@ -110,6 +114,17 @@ body::after {
     border-radius: 5px;
     align-self: center;
     cursor: pointer;
+}
+
+.answer {
+    border: 1px solid #4D5B9E;
+    border-radius: 5px;
+    padding: 0.5rem;
+    text-align: center;
+}
+
+.correct, .incorrect {
+    border: none;
 }
 
 .correct {

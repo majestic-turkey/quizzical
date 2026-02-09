@@ -9,7 +9,7 @@ function App() {
   return (<>
     {page === "title" && <Title startQuiz={() => setPage("quiz")} />}
 
-    {page === "quiz" && <Quiz />}
+    {page === "quiz" && <Quiz titleReturn={() => setPage("title")} restartQuiz={() => setPage("quiz")} />}
   </>)
 }
 

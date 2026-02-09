@@ -1,18 +1,20 @@
-import trivia from "./trivia"
+import getTrivia from "./trivia"
 import Question from "./Question"
-import {useState} from "react"
+import {useState, useEffect} from "react"
 
-export default function Quiz() {
-    const [triviaQuestions, setTriviaQuestions] = useState(trivia.map(question => {
-        return {question: question.question,
-                correct_answer: question.correct_answer,
-                incorrect_answers: question.incorrect_answers,
-                guessed: false
-        }
-    }))
+export default function Quiz({ titleReturn }) {
 
-    const guessAnswer = (index) => {
+    const [triviaQuestions, setTriviaQuestions] = useState([])
+    useEffect (() => {
+        getTrivia().then(data => setTriviaQuestions(data))
+    },[])
+
+    function guessAnswer(index) {
         setTriviaQuestions(prev => prev.map((q, i) => i === index ? {...q, guessed: true} : q))
+    }
+    
+    async function resetQuiz() {
+        await getTrivia().then(data => setTriviaQuestions(data))
     }
 
     const triviaEls = triviaQuestions.map((triv, index) => {
@@ -24,10 +26,15 @@ export default function Quiz() {
             onClick={() => guessAnswer(index)}
             />
     })
+    
 
     return <section className="quiz">
         <div className="quiz-container">
             {triviaEls}
+        </div>
+        <div className="buttons">
+            <button className="start-btn" onClick={titleReturn}>Return to Title</button>
+            <button className="start-btn" onClick={resetQuiz}>Restart Quiz</button>
         </div>
     </section>
 }
