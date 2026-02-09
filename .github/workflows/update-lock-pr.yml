@@ -1,0 +1,28 @@
+name: Update package-lock PR
+
+on:
+  schedule:
+    - cron: '0 3 * * 0'
+  workflow_dispatch:
+
+jobs:
+  update-lock:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node 18
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+      - name: Generate package-lock.json
+        run: npm install --package-lock-only
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "chore: update package-lock.json"
+          branch: update/package-lock
+          title: "Update package-lock.json"
+          body: "Automated update of package-lock.json using Node 18/npm 9"
+          labels: automated, dependencies
