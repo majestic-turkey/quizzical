@@ -1,19 +1,33 @@
-import {useState} from "react"
 import trivia from "./trivia"
+import Question from "./Question"
+import {useState} from "react"
 
 export default function Quiz() {
-    // eslint-disable-next-line no-unused-vars
-    const [triviaQuestions, setTriviaQuestions] = useState(trivia.results)
+    const [triviaQuestions, setTriviaQuestions] = useState(trivia.map(question => {
+        return {question: question.question,
+                correct_answer: question.correct_answer,
+                incorrect_answers: question.incorrect_answers,
+                guessed: false
+        }
+    }))
 
-    const triviaEls = triviaQuestions.map((question, index) => {
-        return <div key={index}>
-            <h3>{question.question}</h3>
-            <p>{question.correct_answer}</p>
-        </div>
+    const guessAnswer = (index) => {
+        setTriviaQuestions(prev => prev.map((q, i) => i === index ? {...q, guessed: true} : q))
+    }
+
+    const triviaEls = triviaQuestions.map((triv, index) => {
+        return <Question
+            triv={triv}
+            index={index}
+            key={index}
+            guessed={triv.guessed}
+            onClick={() => guessAnswer(index)}
+            />
     })
 
-    return <div className="quiz-container">
-      <h1>Quiz</h1>
-      {triviaEls}
-    </div>
+    return <section className="quiz">
+        <div className="quiz-container">
+            {triviaEls}
+        </div>
+    </section>
 }
